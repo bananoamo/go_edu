@@ -48,8 +48,8 @@ func main() {
 
 	second := map[string]map[string]int{
 		"hello":{
-			"world":100
-		}
+			"world":100,
+		},
 	}
 	fmt.Println(second)
 	fmt.Println(second["hello"]["world"])
