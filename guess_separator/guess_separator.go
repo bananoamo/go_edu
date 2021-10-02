@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 func main() {
@@ -14,8 +15,10 @@ func main() {
 		fmt.Printf("usage: ./%s [filename]\n", filepath.Base(os.Args[0]))
 		os.Exit(1)
 	}
-	numberOfReadLines, lines := readFileUpToNLines(os.Args[1], 5)
-	fmt.Printf("%d %q\n", numberOfReadLines, lines)
+	separators := []string{"\t", "*", "|", "•"}
+	numberOfReadLines, lines := readFileUpToNLines(os.Args[1], 10)
+	separatorsByLines := getSepListFromLines(lines, separators, numberOfReadLines)
+	fmt.Println(separatorsByLines)
 }
 
 func readFileUpToNLines(fileName string, maxLines int) (int, []string) {
@@ -38,4 +41,14 @@ func readFileUpToNLines(fileName string, maxLines int) (int, []string) {
 		lines = append(lines, line)
 	}
 	return i, lines
+}
+func getSepListFromLines(lines, sep []string, maxLines int) [][]int {
+	sepList := make([][]int, len(sep))
+	for sepIdx := range sep {
+		sepList[sepIdx] = make([]int, maxLines)
+		for lineIdx, line := range lines {
+			sepList[sepIdx][lineIdx] = strings.Count(line, sep[sepIdx])
+		}
+	}
+	return sepList
 }
