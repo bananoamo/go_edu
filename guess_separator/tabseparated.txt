@@ -1,0 +1,5 @@
+a	a	a	a	a
+b	*b	*b	*	j
+c	*c	|•	c*	•c|
+d•d	•	d	•	d•d
+w	w	w	w	w w
