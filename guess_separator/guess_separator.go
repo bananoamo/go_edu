@@ -16,9 +16,13 @@ func main() {
 		os.Exit(1)
 	}
 	separators := []string{"\t", "*", "|", "•"}
-	numberOfReadLines, lines := readFileUpToNLines(os.Args[1], 10)
+	numberOfReadLines, lines := readFileUpToNLines(os.Args[1], 5)
 	separatorsByLines := getSepListFromLines(lines, separators, numberOfReadLines)
+	lineSeparator := guessSep(separators, separatorsByLines, numberOfReadLines)
+	//printResult(lineSeparator)
+	fmt.Printf("%#q\n", []rune(lineSeparator))
 	fmt.Println(separatorsByLines)
+
 }
 
 func readFileUpToNLines(fileName string, maxLines int) (int, []string) {
@@ -51,4 +55,20 @@ func getSepListFromLines(lines, sep []string, maxLines int) [][]int {
 		}
 	}
 	return sepList
+}
+func guessSep(sepList []string, sepByLines [][]int, maxline int) string {
+	for sepIdx := range sepList {
+		same := true
+		target := sepByLines[sepIdx][0]
+		for lineIdx := 1; lineIdx < maxline; lineIdx++ {
+			if sepByLines[sepIdx][lineIdx] != target {
+				same = false
+				break
+			}
+		}
+		if target > 0 && same {
+			return sepList[sepIdx]
+		}
+	}
+	return ""
 }
