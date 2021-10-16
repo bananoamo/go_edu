@@ -8,3 +8,5 @@ This repository was created to store small programs while I am studying golang
 `parse_ini` _parsing *.ini file and output to stdout formatted data in human-friendly format_
 
 `wordfreq` _parsing file and output to stdout two different reports: frequency by word and words by frequency_
+
+`concurrency/filter` _output all modified files filtered by day, month, year and extension suffix_
